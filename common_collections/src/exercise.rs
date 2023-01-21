@@ -1,3 +1,4 @@
+use core::panicking::panic;
 use std::collections::HashMap;
 use std::io;
 use std::str::SplitWhitespace;
@@ -232,13 +233,13 @@ pub fn exercise3(){
 }
 
 fn display_line(employee: &HashMap<String, String>){
-    let mut display_department = String::new();
-    if let Some(dep) = employee.get("department") {
-        display_department = dep.to_string()
-    }
-    let mut display_name = String::new();
-    if let Some(name) = employee.get("name") {
-        display_name = name.to_string()
-    }
+    let display_department = match employee.get("department") {
+        Some(department) => department,
+        None => panic!("employee must have department")
+    };
+    let display_name = match employee.get("name") {
+        Some(name) => name,
+        None => panic!("employee must have department")
+    };
     println!("department: {} / name: {}", display_department, display_name);
 }
