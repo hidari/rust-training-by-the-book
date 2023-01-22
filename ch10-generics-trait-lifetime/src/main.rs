@@ -1,4 +1,4 @@
-use ch10_generics_trait_lifetime::aggregator::Tweet;
+use ch10_generics_trait_lifetime::aggregator::{NewsArticle, Tweet};
 use ch10_generics_trait_lifetime::aggregator::Summary;
 
 fn main() {
@@ -16,8 +16,15 @@ fn main() {
         reply: false,
         retweet: false,
     };
+    println!("1 new tweet: {}", tweet.summarize());
 
-    println!("1 new tweet: {}", tweet.summarize())
+    let article = NewsArticle{
+        headline: String::from("滑らかな銀髪ロングの美少女"),
+        location: String::from("大阪"),
+        author: String::from("Hidari0415"),
+        content: String::from("銀髪の美少女こそ至高。この世の宝。"),
+    };
+    println!("New article available {}", article.summarize())
 }
 
 fn largest_i32(list: &[i32]) -> i32{
