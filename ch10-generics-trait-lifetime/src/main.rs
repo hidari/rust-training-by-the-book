@@ -1,5 +1,6 @@
 use ch10_generics_trait_lifetime::aggregator::Summary;
 use ch10_generics_trait_lifetime::aggregator::{NewsArticle, Tweet};
+use std::fmt::Display;
 
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
@@ -97,5 +98,17 @@ impl<'a> ImportantExcerpt<'a> {
     fn announce_and_return_part(&self, announcement: &str) -> &str {
         println!("Attention please: {}", announcement);
         self.part
+    }
+}
+
+fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
+where
+    T: Display,
+{
+    println!("Announcement! {}", ann);
+    if x.len() > y.len() {
+        x
+    } else {
+        y
     }
 }
