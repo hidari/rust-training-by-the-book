@@ -1,5 +1,5 @@
-use ch10_generics_trait_lifetime::aggregator::{NewsArticle, Tweet};
 use ch10_generics_trait_lifetime::aggregator::Summary;
+use ch10_generics_trait_lifetime::aggregator::{NewsArticle, Tweet};
 
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
@@ -10,7 +10,7 @@ fn main() {
     let result = largest_char(&number_list);
     println!("The largest char is {}", result);
 
-    let tweet = Tweet{
+    let tweet = Tweet {
         username: String::from("Hidari0415"),
         content: String::from("銀髪は至高。"),
         reply: false,
@@ -18,7 +18,7 @@ fn main() {
     };
     println!("1 new tweet: {}", tweet.summarize());
 
-    let article = NewsArticle{
+    let article = NewsArticle {
         headline: String::from("滑らかな銀髪ロングの美少女"),
         location: String::from("大阪"),
         author: String::from("Hidari0415"),
@@ -27,7 +27,7 @@ fn main() {
     println!("New article available {}", article.summarize())
 }
 
-fn largest_i32(list: &[i32]) -> i32{
+fn largest_i32(list: &[i32]) -> i32 {
     let mut largest = list[0];
 
     for &item in list.iter() {

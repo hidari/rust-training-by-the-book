@@ -1,22 +1,23 @@
 use crate::aggregator::Summary;
+use std::fmt::Display;
 
-pub mod aggregator{
-    pub trait Summary{
+pub mod aggregator {
+    pub trait Summary {
         fn summarize_author(&self) -> String;
 
-        fn summarize(&self) -> String{
+        fn summarize(&self) -> String {
             format!("(Read more from {}...)", self.summarize_author())
         }
     }
 
-    pub struct NewsArticle{
+    pub struct NewsArticle {
         pub headline: String,
         pub location: String,
         pub author: String,
         pub content: String,
     }
 
-    impl Summary for NewsArticle{
+    impl Summary for NewsArticle {
         fn summarize_author(&self) -> String {
             format!("{}", self.author)
         }
@@ -25,7 +26,7 @@ pub mod aggregator{
         // }
     }
 
-    pub struct Tweet{
+    pub struct Tweet {
         pub username: String,
         pub content: String,
         pub reply: bool,
