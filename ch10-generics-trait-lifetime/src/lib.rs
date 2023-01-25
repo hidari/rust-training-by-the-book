@@ -1,4 +1,4 @@
-use crate::aggregator::Summary;
+use crate::aggregator::{Summary, Tweet};
 use std::fmt::Display;
 
 pub mod aggregator {
@@ -42,4 +42,13 @@ pub mod aggregator {
 
 pub fn notify<T: Summary + Display>(item: &T) {
     println!("Breaking news! {}", item.summarize());
+}
+
+pub fn returns_summarizable() -> impl Summary{
+    Tweet{
+        username: String::from("Hidari0415"),
+        content: String::from("銀髪を崇めよ。"),
+        reply: false,
+        retweet: false,
+    }
 }
