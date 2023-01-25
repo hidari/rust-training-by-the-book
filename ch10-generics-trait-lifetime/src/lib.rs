@@ -1,3 +1,5 @@
+use crate::aggregator::Summary;
+
 pub mod aggregator{
     pub trait Summary{
         fn summarize_author(&self) -> String;
@@ -37,3 +39,6 @@ pub mod aggregator{
     }
 }
 
+pub fn notify(item: &impl Summary){
+    println!("Breaking news! {}", item.summarize());
+}
