@@ -44,8 +44,8 @@ pub fn notify<T: Summary + Display>(item: &T) {
     println!("Breaking news! {}", item.summarize());
 }
 
-pub fn returns_summarizable() -> impl Summary{
-    Tweet{
+pub fn returns_summarizable() -> impl Summary {
+    Tweet {
         username: String::from("Hidari0415"),
         content: String::from("銀髪を崇めよ。"),
         reply: false,
