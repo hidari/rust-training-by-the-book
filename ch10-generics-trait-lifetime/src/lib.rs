@@ -39,6 +39,6 @@ pub mod aggregator{
     }
 }
 
-pub fn notify<T: Summary>(item: &T){
+pub fn notify<T: Summary + Display>(item: &T) {
     println!("Breaking news! {}", item.summarize());
 }
