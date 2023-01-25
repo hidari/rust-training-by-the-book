@@ -24,7 +24,15 @@ fn main() {
         author: String::from("Hidari0415"),
         content: String::from("銀髪の美少女こそ至高。この世の宝。"),
     };
-    println!("New article available {}", article.summarize())
+    println!("New article available {}", article.summarize());
+
+    // lifetime
+
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
+
+    let result = longest(string1.as_str(), string2);
+    println!("The longest string is {}", result);
 }
 
 fn largest_i32(list: &[i32]) -> i32 {
@@ -60,4 +68,12 @@ fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     }
 
     largest
+}
+
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
 }
