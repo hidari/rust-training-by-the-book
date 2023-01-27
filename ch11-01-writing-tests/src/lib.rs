@@ -3,7 +3,7 @@ pub fn add(left: usize, right: usize) -> usize {
 }
 
 pub fn add_two(a: i32) -> i32 {
-    a + 3
+    a + 2
 }
 
 #[derive(Debug)]
