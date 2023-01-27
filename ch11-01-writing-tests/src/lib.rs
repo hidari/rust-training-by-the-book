@@ -7,7 +7,7 @@ pub fn add_two(a: i32) -> i32 {
 }
 
 pub fn greeting(name: &str) -> String {
-    format!("Hello!")
+    format!("Hello {}!", name)
 }
 
 #[derive(Debug)]
