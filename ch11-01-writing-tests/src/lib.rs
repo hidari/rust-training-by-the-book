@@ -98,6 +98,16 @@ mod tests {
     }
 
     #[test]
+    fn it_adds_three_and_two(){
+        assert_eq!(5, add_two(3));
+    }
+
+    #[test]
+    fn it_adds_one_hundred(){
+        assert_eq!(102, add_two(100));
+    }
+
+    #[test]
     fn greeting_contains_name() {
         let result = greeting("Hidari");
         assert!(
