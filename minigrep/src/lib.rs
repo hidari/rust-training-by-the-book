@@ -1,7 +1,7 @@
+use std::env;
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
-use std::env;
 
 pub struct Config {
     pub query: String,
@@ -25,7 +25,11 @@ impl Config {
 
         let case_sensitive = env::var("CASE_SENSITIVE").is_err();
 
-        Ok(Config { query, filename, case_sensitive })
+        Ok(Config {
+            query,
+            filename,
+            case_sensitive,
+        })
     }
 }
 
@@ -49,12 +53,18 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 }
 
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    contents.lines().filter(|line| line.contains(query)).collect()
+    contents
+        .lines()
+        .filter(|line| line.contains(query))
+        .collect()
 }
 
-pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str>{
+pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     let query = query.to_lowercase();
-    contents.lines().filter(|line| line.to_lowercase().contains(&query)).collect()
+    contents
+        .lines()
+        .filter(|line| line.to_lowercase().contains(&query))
+        .collect()
 }
 
 #[cfg(test)]
@@ -81,6 +91,9 @@ Rust:
 safe, fast, productive.
 Pick three.
 Trust me.";
-        assert_eq!(vec!["Rust:", "Trust me."], search_case_insensitive(query, content));
+        assert_eq!(
+            vec!["Rust:", "Trust me."],
+            search_case_insensitive(query, content)
+        );
     }
 }
