@@ -74,13 +74,13 @@ mod test {
     #[test]
     fn case_sensitive() {
         let query = "duct";
-        let constent = "\
+        let content = "\
 Rust:
 safe, fast, productive.
 Pick three.
 Duct tape.";
 
-        assert_eq!(vec!["safe, fast, productive."], search(query, constent));
+        assert_eq!(vec!["safe, fast, productive."], search(query, content));
     }
 
     #[test]
