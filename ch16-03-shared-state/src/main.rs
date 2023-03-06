@@ -1,11 +1,33 @@
 use std::sync::Mutex;
+use std::thread;
 
 fn main() {
-    let m = Mutex::new(5);
+    let counter = Mutex::new(0);
+    let mut handles = vec![];
 
-    {
-        let mut num = m.lock().unwrap();
-        *num = 6;
+    // for _ in 1..10 {
+    //     let handle = thread::spawn(move || {
+    //         let mut num = counter.lock().unwrap();
+    //         *num += 1;
+    //     });
+    //     handles.push(handle);
+    // }
+
+    let handle = thread::spawn(move || {
+        let mut num = counter.lock().unwrap();
+        *num += 1;
+    });
+    handles.push(handle);
+
+    let handle2 = thread::spawn(move || {
+        let mut num2 = counter.lock().unwrap();
+        *num2 += 1;
+    });
+    handles.push(handle2);
+
+    for handle in handles {
+        handle.join().unwrap();
     }
-    println!("m = {:?}", m);
+
+    println!("Result: {}", *counter.lock().unwrap());
 }
