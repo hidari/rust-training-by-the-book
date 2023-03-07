@@ -1,5 +1,5 @@
-extern crate blog;
-use blog::Post;
+extern crate ch17_03_oo_design_patterns;
+use ch17_03_oo_design_patterns::Post;
 
 fn main() {
     let mut post = Post::new();
