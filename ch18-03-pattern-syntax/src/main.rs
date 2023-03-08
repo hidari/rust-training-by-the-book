@@ -133,5 +133,18 @@ fn main() {
         4 | 5 | 6 if y => println!("yes"),
         _ => println!("no"),
     }
+
+    println!("========================");
+
+    enum SimpleMessage {
+        Hello{id: i32},
+    }
+
+    let msg = SimpleMessage::Hello { id: 5 };
+    match msg {
+        SimpleMessage::Hello{id: id_val @ 3..=7} => println!("Found an id in range: {}", id_val),
+        SimpleMessage::Hello{id: 10..=12} => println!("Found an id in another range"),
+        SimpleMessage::Hello{id} => println!("Found some other id: {}", id),
+    }
 }
 
