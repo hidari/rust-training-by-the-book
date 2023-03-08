@@ -84,8 +84,10 @@ fn main() {
         Point { x: 1, y: 5 },
         Point { x: 10, y: -3 },
     ];
-    let sum_of_squares: i32 = points
+    let _sum_of_squares: i32 = points
         .iter()
         .map(|&Point { x, y }| x * x + y * y)
         .sum();
+    let ((feet, inches), Point { x, y }) = ((3, 10), Point { x: 3, y: -10 });
 }
+
