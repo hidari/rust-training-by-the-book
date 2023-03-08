@@ -4,6 +4,14 @@ extern "C" {
     fn abs(input: i32) -> i32;
 }
 
+static mut COUNTER: u32 = 0;
+
+fn add_to_count(inc: u32){
+    unsafe {
+        COUNTER += inc;
+    }
+}
+
 fn main() {
     let mut num = 5;
     let r1 = &num as *const i32;
@@ -30,6 +38,13 @@ fn main() {
 
     unsafe {
         println!("Absolute value of -3 according to C: {}", abs(-3));
+    }
+
+    println!("========================");
+
+    add_to_count(3);
+    unsafe {
+        println!("COUNTER: {}", COUNTER);
     }
 }
 
