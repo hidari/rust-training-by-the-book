@@ -99,5 +99,12 @@ fn main() {
         _ => setting_value = new_setting_value,
     }
     println!("setting is {:?}", setting_value);
+
+    println!("========================");
+
+    let numbers = (2, 4, 8, 16, 32);
+    match numbers {
+        (first, .., last) => println!("Some numbers: {}, {}", first, last),
+    }
 }
 
