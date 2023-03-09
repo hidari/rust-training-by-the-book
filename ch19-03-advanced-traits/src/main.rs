@@ -58,5 +58,7 @@ fn main() {
                Point { x: 3, y: 3 });
 
     let person = Human;
+    Pilot::fly(&person);
+    Wizard::fly(&person);
     person.fly();
 }
