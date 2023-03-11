@@ -1,3 +1,6 @@
+extern crate hello;
+use hello::ThreadPool;
+
 use std::fs::File;
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
@@ -11,7 +14,7 @@ fn main() {
     for stream in listener.incoming() {
         let stream = stream.unwrap();
 
-        pool::execute(|| {
+        pool.execute(|| {
             handle_connection(stream);
         });
     }
