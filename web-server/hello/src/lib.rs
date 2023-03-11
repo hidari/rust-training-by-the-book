@@ -1,12 +1,22 @@
-use std::sync::{Arc, mpsc, Mutex};
+use std::sync::{mpsc, Arc, Mutex};
 use std::thread;
 
-pub struct ThreadPool{
+pub struct ThreadPool {
     workers: Vec<Worker>,
-    sender: mpsc::Sender<Job>
+    sender: mpsc::Sender<Job>,
 }
 
-type Job = Box<FnOnce() + Send + 'static>;
+trait FnBox {
+    fn call_box(self: Box<Self>);
+}
+
+impl<F: FnOnce()> FnBox for F {
+    fn call_box(self: Box<Self>) {
+        (*self)()
+    }
+}
+
+type Job = Box<dyn FnBox + Send + 'static>;
 
 impl ThreadPool {
     /// Create a new ThreadPool.
@@ -24,13 +34,9 @@ impl ThreadPool {
 
         for id in 0..size {
             workers.push(Worker::new(id, Arc::clone(&receiver)));
-
         }
 
-        ThreadPool{
-            workers,
-            sender
-        }
+        ThreadPool { workers, sender }
     }
 
     pub fn execute<F>(&self, f: F)
@@ -42,19 +48,18 @@ impl ThreadPool {
     }
 }
 
-struct Worker{
+struct Worker {
     id: usize,
     thread: thread::JoinHandle<()>,
 }
 
 impl Worker {
-    fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker{
-        let thread = thread::spawn(|| {
-            receiver;
+    fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker {
+        let thread = thread::spawn(move || loop {
+            let job = receiver.lock().unwrap().recv().unwrap();
+            println!("Worker {} got a job; executing.", id);
+            job.call_box();
         });
-        Worker{
-            id,
-            thread,
-        }
+        Worker { id, thread }
     }
 }
